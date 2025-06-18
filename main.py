@@ -20,6 +20,7 @@ def main():
                     return
             screen.fill((0,0,0))
             Spaceship.draw(screen)
+            Spaceship.update(dt)
             dt = FPS.tick(60) / 1000
             pygame.display.flip()
             

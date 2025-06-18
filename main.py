@@ -10,6 +10,9 @@ def main():
     print("Starting Asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
     FPS = pygame.time.Clock()
     Spaceship = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     begin_loop = 1
@@ -19,8 +22,9 @@ def main():
                 if event.type == pygame.QUIT:
                     return
             screen.fill((0,0,0))
-            Spaceship.draw(screen)
-            Spaceship.update(dt)
+            for drawables in drawable:
+                drawables.draw(screen)
+            updatable.update(dt)
             dt = FPS.tick(60) / 1000
             pygame.display.flip()
             

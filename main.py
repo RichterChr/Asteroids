@@ -1,6 +1,8 @@
 import pygame
 from constants import *
 from player import *
+from asteroid import *
+from asteroidfield import *
 
 def main():
     pygame.init()
@@ -12,9 +14,13 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable,)
     FPS = pygame.time.Clock()
     Spaceship = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    FO = AsteroidField()
     begin_loop = 1
     while True:
          if begin_loop == 1:
@@ -24,8 +30,8 @@ def main():
             screen.fill((0,0,0))
             for drawables in drawable:
                 drawables.draw(screen)
-            updatable.update(dt)
             dt = FPS.tick(60) / 1000
+            updatable.update(dt)
             pygame.display.flip()
             
             

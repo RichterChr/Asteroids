@@ -4,6 +4,7 @@ from constants import *
 from player import *
 from asteroid import *
 from asteroidfield import *
+from shots import *
 
 def main():
     pygame.init()
@@ -19,6 +20,7 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
+    Shot.containers = (updatable, drawable)
     FPS = pygame.time.Clock()
     Spaceship = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     FO = AsteroidField()

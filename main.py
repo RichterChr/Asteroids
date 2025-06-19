@@ -17,10 +17,11 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    bullets = pygame.sprite.Group()
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
-    Shot.containers = (updatable, drawable)
+    Shot.containers = (bullets, updatable, drawable)
     FPS = pygame.time.Clock()
     Spaceship = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     FO = AsteroidField()
@@ -36,7 +37,12 @@ def main():
             dt = FPS.tick(60) / 1000
             updatable.update(dt)
             for asteroid in asteroids:
-                if asteroid.collision(Spaceship) == True:
+                for bullet in bullets:
+                    if bullet.collision(asteroid):
+                        asteroid.split()
+                        bullet.kill()
+            for asteroid in asteroids:
+                if asteroid.collision(Spaceship):
                     print("Game over!")
                     sys.exit()
             pygame.display.flip()
